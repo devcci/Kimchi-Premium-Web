@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import com.example.test.service.TestService;
 import com.example.test.vo.TestVo;
 
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HelloController {
 
-    @Autowired
+    @Resource(name="testService")
     TestService testService;
 
     // @ModelAttribute("testa")

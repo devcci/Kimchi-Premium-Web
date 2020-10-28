@@ -7,7 +7,7 @@ import com.example.test.vo.TestVo;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface TestDao {
+public interface TestMapper {
 
     public List<TestVo> selectListMember();
 
