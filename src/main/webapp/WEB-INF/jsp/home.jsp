@@ -15,7 +15,7 @@
     ${map}
     ${map.age}
     13
-    ${testa[1].name}
+    ${testa[0].ha}
     <!-- <input type="text" id="1" name="memName">
     <input type="text" id="2" name="memName"> -->
 </body>

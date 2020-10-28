@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 import com.example.test.dao.TestMapper;
 import com.example.test.vo.TestVo;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service("testService")
