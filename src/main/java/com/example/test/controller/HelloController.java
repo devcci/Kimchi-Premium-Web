@@ -19,14 +19,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HelloController {
 
-    //@Autowired 사용 가능하지만 명시적으로 자바 Class(Bean)을 주입
-    @Resource(name="testService")
+    // @Autowired 사용 가능하지만 명시적으로 자바 Class(Bean)을 주입
+    @Resource(name = "testService")
     TestService testService;
+
+    @RequestMapping("/")
+    public String index(){
+        return "kimp";
+    }
 
     // map 이용한 임시 VO 활용한 ModelAttribute 활용
     @ModelAttribute("testa")
-    public List<Map<String, String>> comm(){
-        Map<String, String> testmap = new HashMap<String,String>();
+    public List<Map<String, String>> comm() {
+        Map<String, String> testmap = new HashMap<String, String>();
         testmap.put("ha", "cc");
 
         List<Map<String, String>> testa = new ArrayList<Map<String, String>>();
@@ -40,8 +45,8 @@ public class HelloController {
     // @ModelAttribute("testa")
     // public List<TestVo> comm(){
 
-    //     List<TestVo> testa = testService.selectListMember();
-    //     return testa;
+    // List<TestVo> testa = testService.selectListMember();
+    // return testa;
     // }
 
     @RequestMapping("member")
@@ -49,12 +54,13 @@ public class HelloController {
         // DB로부터 데이터 가져와서 VO 자동 매칭
         List<TestVo> lst = testService.selectListMember();
         // map으로 임시 VO 생성
-        Map<String, String> map = new HashMap<String,String>();
+        Map<String, String> map = new HashMap<String, String>();
         map.put("name", "1");
-        map.put("age", "22");        
+        map.put("age", "22");
 
-        model.addAttribute("memberList",lst);
-        model.addAttribute("map",map);
+        model.addAttribute("memberList", lst);
+        model.addAttribute("map", map);
         return "home";
     }
+
 }
