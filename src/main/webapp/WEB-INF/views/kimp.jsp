@@ -7,6 +7,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>김프체크</title>
     <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="#">
   </head>
 
   <body>
@@ -30,6 +32,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       <!-- 김프차트 -->
     </div>
 
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery-3.6.0.min.js"></script>
     <script
       type="text/javascript"
       src="https://s3.tradingview.com/tv.js"
