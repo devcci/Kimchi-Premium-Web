@@ -1,5 +1,24 @@
 @charset "UTF-8";
 
-.table {
-	margin-bottom: 10px;
+.button-container {
+    width: 100%;
+    overflow-y: auto;
+}
+
+.button-container > button {
+    width: 4rem;
+    height: 1.5rem;
+    float: left;
+    /* background: lightgray; */
+    margin: 2px;
+}
+
+.favorText {
+	display: inline-block;
+    font-size: 0.8rem;
+}
+
+.slogo {
+    width: 1rem;
+    height: 1rem;
 }
