@@ -1,6 +1,6 @@
-package com.example.test.vo;
+package com.coin.kimp.vo;
 
-public class TestVo {
+public class ChatVo {
     private String id;
     private String name;
 

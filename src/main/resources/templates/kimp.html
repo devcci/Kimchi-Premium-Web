@@ -1,16 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
   <title>김프체크</title>
   <link rel="stylesheet" href="/css/style.css" />
-  <link rel="stylesheet" href="/css/bootstrap.min.css" />
-  <link rel="shortcut icon" href="#" />
+  <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" />
+  <link rel="shortcut icon" href="/img/icon.png" />
 </head>
 
 <body>
@@ -44,18 +41,27 @@
       </div>
     </div>
 
-
+    <div class="btn-group btn-group-sm" style="padding-top: 0.5rem;" role="group">
+      <button type="button" class="btn btn-light btn-sm"><a href="https://upbit.com/" target="_blank"><img
+            src="/img/upbit.png" alt="upbit" class=exchange-icon>업비트
+          이동</a></button>
+      <button type="button" class="btn btn-light btn-sm"><a href="https://www.binance.com/ko/register?ref=RZRUT876"
+          target="_blank"><img src="/img/binance.png" alt="binance" class=exchange-icon>바이낸스 이동</a></button>
+    </div>
+    <!-- 검색 -->
+    <nav class="navbar navbar-light bg-light" style="float: right;">
+      <div class="container-md">
+        <div class="d-flex">
+          <input id="search_input" class="form-control me-md-auto" type="search" placeholder="Search"
+            aria-label="Search">
+          <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
+        </div>
+      </div>
+    </nav>
 
     <!-- 코인 Symbol 목록 -->
     <div id="symbolBtnList" class="button-container">
     </div>
-
-
-
-    <button><a href="https://upbit.com/" target="_blank"><img src="/img/upbit.png" alt="upbit" class=exchange-icon>업비트
-        이동</a></button>
-    <button><a href="https://www.binance.com/ko/register?ref=RZRUT876" target="_blank"><img src="/img/binance.png"
-          alt="binance" class=exchange-icon>바이낸스 이동</a></button>
 
     <div id="tickerBoard">
       <table class="table table-hover table-sm">
@@ -74,12 +80,12 @@
     </div>
   </div>
 
-
   <!-- 스크립트 시작 -->
-  <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/js/bootstrap/bootstrap.min.js"></script>
   <script src="/js/jquery-3.6.0.min.js"></script>
   <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
   <script type="text/javascript" src="/js/common.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/inko@1.1.1/inko.min.js"></script>
   <script type="text/javascript">
     var arr_krw_markets = []; // 업비트 코인 마켓 배열
     var arr_korean_name = new Map(); // 업비트 코인 한글명 배열
@@ -264,6 +270,26 @@
       getUpbitCoinTicker();
       getBinanceTicker();
     }
+
+    // 검색 기능
+
+    // $('#search_input').keyup(function () {
+    $("#search_input").on("input", function () {
+      var keyword = this.value;
+      let inko = new Inko();
+      keyword = inko.ko2en(keyword);
+      var target = $('button[name=symbolBtn]');
+      $('button[name=symbolBtn]').css('display', 'none');
+
+      for (let i = 0; i < target.length; i++) {
+        if (target[i].value.substring(4).indexOf(keyword.toUpperCase()) > -1) {
+          target[i].style = ''
+        }
+      }
+      if (keyword == "" || keyword == null || keyword == undefined) {
+        $('button[name=symbolBtn]').removeAttr("style");
+      }
+    });
 
     // 업비트 현재가 조회
     function getUpbitCoinTicker() {

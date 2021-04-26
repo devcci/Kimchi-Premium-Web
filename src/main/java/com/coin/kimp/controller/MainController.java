@@ -1,17 +1,15 @@
-package com.example.test.controller;
+package com.coin.kimp.controller;
 
 import javax.annotation.Resource;
-
-import com.example.test.service.TestService;
-
+import com.coin.kimp.service.ChatService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class UpbitWebSocketClientController {
+public class MainController {
 
-    @Resource(name = "testService")
-    TestService testService;
+    @Resource(name = "chatService")
+    ChatService testService;
 
     @RequestMapping("/")
     public String index() {
