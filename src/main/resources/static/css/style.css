@@ -32,6 +32,10 @@
     }
 }
 
+html,body {
+    height:100%;
+ }
+
 body {
     font-family: 'Nanum Gothic', sans-serif !important;
 }
@@ -82,4 +86,8 @@ input {
 .exchange-icon {
     width: 2rem;
     height: 2rem;
+}
+
+.card-body {
+    padding: 0.5rem 0.5rem;
 }
