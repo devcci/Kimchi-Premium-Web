@@ -86,6 +86,7 @@
   <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
   <script type="text/javascript" src="/js/common.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/inko@1.1.1/inko.min.js"></script>
+  <script src="https://unpkg.com/hangul-js" type="text/javascript"></script>
   <script type="text/javascript">
     var arr_krw_markets = []; // 업비트 코인 마켓 배열
     var arr_korean_name = new Map(); // 업비트 코인 한글명 배열
@@ -245,7 +246,6 @@
     }
     // 관심 코인 초기로딩 시 색 표시
     function favorOn(params) {
-      // var smBtns = $("button[name='symbolBtn']"); 제이쿼리 자제
       var smBtns = document.getElementsByName('symbolBtn');
       for (let i = 0; i < smBtns.length; i++) {
         if (favorCoinList.indexOf(smBtns[i].value) != -1) {
@@ -271,19 +271,31 @@
       getBinanceTicker();
     }
 
-    // 검색 기능
-
-    // $('#search_input').keyup(function () {
+    // 실시간 검색 기능
     $("#search_input").on("input", function () {
       var keyword = this.value;
+      var keworden = "";
       let inko = new Inko();
-      keyword = inko.ko2en(keyword);
+      keworden = inko.ko2en(keyword);
       var target = $('button[name=symbolBtn]');
       $('button[name=symbolBtn]').css('display', 'none');
 
       for (let i = 0; i < target.length; i++) {
-        if (target[i].value.substring(4).indexOf(keyword.toUpperCase()) > -1) {
+
+        if (target[i].title.indexOf(keyword) > -1) {
           target[i].style = ''
+        } else if (target[i].value.substring(4).indexOf(keworden.toUpperCase()) > -1) {
+          target[i].style = ''
+        } else if (Hangul.isChoAll(keyword)) {
+          var keywordDis = "";
+          var tempKey = "";
+          var tempT = target[i].title;
+          for (let i = 0; i < tempT.length; i++) {
+            keywordDis += Hangul.disassemble(tempT[i])[0];
+          }
+          if (keywordDis.indexOf(keyword) > -1) {
+            target[i].style = ''
+          }
         }
       }
       if (keyword == "" || keyword == null || keyword == undefined) {
@@ -335,11 +347,9 @@
             tickers.json().then(tickers => {
               binanceTicker.set(tickers.symbol, tickers.price);
             })
-          }).catch(err => console.log(err));
+          }).catch(err => console.error(err));
       }
     }
-
-
 
     //비트 도미넌스 차트
     var btcDomiChart = new TradingView.widget({
