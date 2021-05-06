@@ -1,0 +1,22 @@
+{
+  "name": "kimphorse",
+  "version": "1.0.0",
+  "description": "연습용 웹",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdj5250/WebTest.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jdj5250/WebTest/issues"
+  },
+  "homepage": "https://github.com/jdj5250/WebTest#readme",
+  "devDependencies": {
+    "eslint": "^7.25.0"
+  }
+}

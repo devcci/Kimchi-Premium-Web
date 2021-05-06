@@ -4,12 +4,10 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-  <title>김프체크</title>
+  <title>KimchiHorse</title>
   <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" />
   <link rel="stylesheet" href="/css/style.css" />
   <link rel="shortcut icon" href="/img/icon.png" />
-</head>
-
 <body class="bg-dark">
   <div class="p-3 h-100 d-flex flex-column">
     <div class="container">
@@ -45,37 +43,55 @@
       </div>
     </div>
     <div class="container">
-        <div class="btn-group btn-group-sm gap-2" style="padding-top: 0.5rem;" role="group">
-          <button type="button" class="btn btn-light btn-sm"><a href="https://upbit.com/" target="_blank"><img
-                src="/img/upbit.png" alt="upbit" class=exchange-icon>업비트
-              이동</a></button>
-          <button type="button" class="btn btn-light btn-sm"><a href="https://www.binance.com/ko/register?ref=RZRUT876"
-              target="_blank"><img src="/img/binance.png" alt="binance" class=exchange-icon>바이낸스 이동</a></button>
+      <div class="row">
+        <div id="up_coin" class="col-sm w-50">
         </div>
+        <div id="down_coin" class="col-sm w-50">
+        </div>
+      </div>
+    </div>
 
-        <!-- 검색 -->
-        <nav class="navbar navbar-dark bg-dark" style="float: right;">
-          <div class="container-md">
-            <div class="d-flex">
-              <input id="search_input" class="form-control me-md-auto" type="search" placeholder="Search"
-                aria-label="Search">
-              <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
-            </div>
+    <!-- 거래소 링크 버튼 -->
+    <div class="container">
+      <div class="btn-group btn-group-sm gap-2" style="padding-top: 0.5rem;" role="group">
+        <button type="button" class="btn btn-light btn-sm"><a href="https://upbit.com/" target="_blank"><img
+              src="/img/upbit.png" alt="upbit" class=exchange-icon>업비트
+            이동</a></button>
+        <button type="button" class="btn btn-light btn-sm"><a href="https://www.binance.com/ko/register?ref=RZRUT876"
+            target="_blank"><img src="/img/binance.png" alt="binance" class=exchange-icon>바이낸스 이동</a></button>
+      </div>
+
+      <!-- 검색 -->
+      <nav class="navbar navbar-dark bg-dark" style="float: right;">
+        <div class="container-md">
+          <div class="d-flex">
+            <input id="search_input" class="form-control me-md-auto" type="search" placeholder="검색" aria-label="Search">
+            <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
           </div>
-        </nav>
+        </div>
+      </nav>
     </div>
 
     <!-- 코인 Symbol 목록 -->
     <div class="container">
       <div class="row">
-        <div id="symbolBtnList" class="button-container">
+        <p class="mb-0 mt-2">
+          <a id="symbolBtnColl" class="btn btn-primary d-grid" data-bs-toggle="collapse" href="#symbolBtnList"
+            role="button" aria-expanded="true" aria-controls="symbolBtnList" onclick="if(symbolBtnList.style.display=='none') 
+            {symbolBtnList.style.display='';symbolBtnColl.innerText='▲코인 목록 닫기'}
+             else {symbolBtnList.style.display='none';symbolBtnColl.innerText='▶코인 목록 보기'}">
+            ▲코인 목록 접기
+          </a>
+        </p>
+        <div id="symbolBtnList" class="button-container collapse show">
         </div>
       </div>
     </div>
+
     <div class="container">
       <div class="row">
         <div id="tickerBoard" class="mt-2">
-          <table class="table table-dark table-hover table-sm text-white">
+          <table class="table table-dark table-hover table-responsive-sm text-white">
             <thead>
               <tr>
                 <th scope="col">코인</th>
@@ -101,7 +117,6 @@
       </div>
     </div>
   </div>
-
   <!-- 스크립트 시작 -->
   <script type="text/javascript" src="/js/bootstrap/bootstrap.min.js"></script>
   <script src="/js/jquery-3.6.0.min.js"></script>
@@ -122,6 +137,9 @@
       getUpbitCoinName();
       getBinanceCoinName();
     });
+    setInterval(() => {
+      showRaceCoin();
+    }, 1500);
 
     setInterval(() => {
       showTickerBoard();
@@ -207,7 +225,8 @@
             for (var i = 0; i < data.symbols.length; i++) {
               var temp;
               if (data.symbols[i].symbol.indexOf("USDT") > -1) {
-                temp = "KRW-" + data.symbols[i].symbol.substring(0, data.symbols[i].symbol.length - 4);
+                temp = "KRW-" + data.symbols[i].symbol.substring(0, data.symbols[i].symbol.length -
+                  4);
                 if (arr_krw_markets.indexOf(temp) > -1) {
                   arr_binance_markets.push(temp.substring(4, temp.length));
                 }
@@ -224,7 +243,8 @@
       arr_krw_markets.sort();
       for (let i = 0; i < arr_krw_markets.length; i++) {
         symbolHTML +=
-          "<button type='button' name='symbolBtn' class='btn btn-secondary btn-sm' title='" + arr_korean_name.get(
+          "<button type='button' name='symbolBtn' class='btn btn-secondary btn-sm' title='" +
+          arr_korean_name.get(
             arr_krw_markets[i]) + "' onclick='favorToggle(this)' value='" +
           arr_krw_markets[i] + "'><div class=favor-text>" + arr_krw_markets[i].substring(4) +
           "</div></button>";
@@ -241,22 +261,51 @@
 
       for (let i = 0; i < upbitTkcer.size; i++) {
         tickerHTML += '    <tr> ' +
-          '      <th scope="row"><div style="float:left;"><img src="https://static.upbit.com/logos/' + favorCoinList[
+          '      <th scope="row"><div style="float:left;"><img src="https://static.upbit.com/logos/' +
+          favorCoinList[
             i]
           .substring(4) +
           '.png" alt="https://static.upbit.com/logos/' + favorCoinList[i].substring(4) +
           '.png" class=slogo></div><div>' + favorCoinList[i].substring(4) + '</div><div>' +
           arr_korean_name.get(favorCoinList[i]) + '</div></th> ' +
           '      <td>' + krwComma(upbitTkcer.get(favorCoinList[i])) + '</td> ' +
-          '      <td>' + krwComma(binanceTicker.get(favorCoinList[i].substring(4) + "USDT") * 1.0012 * 1115.13) +
+          '      <td>' + krwComma(binanceTicker.get(favorCoinList[i].substring(4) + "USDT") * 1.0012 *
+            1115.13) +
           '</td> ' +
           '      <td>' + usdComma(binanceTicker.get(favorCoinList[i].substring(4) + "USDT")) + '</td> ' +
-          '      <td>' + calKimp(upbitTkcer.get(favorCoinList[i]), binanceTicker.get(favorCoinList[i].substring(4) +
+          '      <td>' + calKimp(upbitTkcer.get(favorCoinList[i]), binanceTicker.get(favorCoinList[i]
+            .substring(4) +
             "USDT")); + '</td> ' +
         '    </tr> ';
       }
       $('#tickerBoard > table > tbody').empty();
       $('#tickerBoard > table > tbody').html(tickerHTML);
+    }
+
+    function showRaceCoin(params) {
+      var htmlUp = "";
+      var htmlDown = "";
+      const options = {
+        method: 'GET',
+        dataType: "json"
+      };
+      fetch('https://dongjun.iptime.org:8443/showRaceCoin', options)
+        .then(data => {
+          data.json().then(data => {
+            for (let index = 0; index < data.upCoin.length; index++) {
+              htmlUp += "<div class='p-3 border bg-dark text-white'>  코인명: " + data.upCoin[index].symbol +
+                " &nbsp; &nbsp;급등률: " + data.upCoin[index].value + "  </div>";
+            }
+            $('#up_coin').html(htmlUp);
+
+            for (let index = 0; index < data.downCoin.length; index++) {
+              htmlDown += "<div class='p-3 border bg-dark text-white'>  코인명: " + data.downCoin[index].symbol +
+                " &nbsp; &nbsp;급락률: " + data.downCoin[index].value + "  </div>";
+            }
+            $('#down_coin').html(htmlDown);
+          })
+        })
+        .catch(err => console.error(err));
     }
 
     function calKimp(krw, usd) {
