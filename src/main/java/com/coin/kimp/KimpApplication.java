@@ -3,10 +3,9 @@ package com.coin.kimp;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
-@ServletComponentScan(basePackages = { "com.coin.kimp.*" })
+//@ServletComponentScan(basePackages = { "com.coin.kimp.*" })
 @SpringBootApplication
 public class KimpApplication extends SpringBootServletInitializer {
 

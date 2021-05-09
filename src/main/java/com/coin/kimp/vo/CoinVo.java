@@ -3,9 +3,6 @@ package com.coin.kimp.vo;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
-
 import lombok.Getter;
 import lombok.Setter;
 

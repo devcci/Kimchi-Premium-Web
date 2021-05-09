@@ -289,7 +289,8 @@
         method: 'GET',
         dataType: "json"
       };
-      fetch('https://dongjun.iptime.org:8443/showRaceCoin', options)
+      //fetch('https://dongjun.iptime.org:8443/showRaceCoin', options)
+      fetch('http://localhost:8080/showRaceCoin', options)
         .then(data => {
           data.json().then(data => {
             for (let index = 0; index < data.upCoin.length; index++) {
