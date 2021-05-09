@@ -1,7 +1,5 @@
 @charset "UTF-8";
 
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
-
 @media (max-width:360px) {
     html {
         font-size: 9px;
