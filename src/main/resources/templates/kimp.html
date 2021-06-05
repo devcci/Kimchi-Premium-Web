@@ -25,7 +25,7 @@
             <div class="row">
               <div class="col-sm">
                 <!-- 도미차트 -->
-                <div class="tradingview-widget-container" style="height: 25rem;">
+                <div class="tradingview-widget-container" style="height: 20rem;">
                   <div id="tradingview_a9577" style="height: 95%;"></div>
                   <div class="text-white text-center">BTC 도미네이션</div>
                 </div>
@@ -33,7 +33,7 @@
               <!-- 도미차트 -->
               <div class="col-sm">
                 <!-- 김프차트 -->
-                <div class="tradingview-widget-container" style="height: 25rem;">
+                <div class="tradingview-widget-container" style="height: 20rem;">
                   <div id="tradingview_155c3" style="height: 95%;"></div>
                   <div class="text-white text-center">김치프리미엄</div>
                 </div>
@@ -97,7 +97,7 @@
             <thead>
               <tr>
                 <th scope="col">코인</th>
-                <th scope="col">업비트</th>
+                <th scope="col">업비트(원)</th>
                 <th scope="col">바이낸스(원)</th>
                 <th scope="col">바이낸스(달러)</th>
                 <th scope="col">김프</th>
@@ -277,7 +277,7 @@
           '      <td>' + usdComma(binanceTicker.get(favorCoinList[i].substring(4) + "USDT")) + '</td> ' +
           '      <td>' + calKimp(upbitTkcer.get(favorCoinList[i]), binanceTicker.get(favorCoinList[i]
             .substring(4) +
-            "USDT")); + '</td> ' +
+            "USDT"))+'%</td> ' +
         '    </tr> ';
       }
       $('#tickerBoard > table > tbody').empty();
@@ -296,14 +296,14 @@
         .then(data => {
           data.json().then(data => {
             for (let index = 0; index < data.upCoin.length; index++) {
-              htmlUp += "<div class='p-3 border bg-dark text-white'>  코인명: " + data.upCoin[index].symbol +
-                " &nbsp; &nbsp;급등률: " + data.upCoin[index].value + "  </div>";
+              htmlUp += "<div class='p-3 border border bg-dark text-white'>  코인명: " + data.upCoin[index].symbol.substring(4) +
+                " &nbsp; &nbsp;급등률: " + data.upCoin[index].value + "%  </div>";
             }
             $('#up_coin').html(htmlUp);
 
             for (let index = 0; index < data.downCoin.length; index++) {
-              htmlDown += "<div class='p-3 border bg-dark text-white'>  코인명: " + data.downCoin[index].symbol +
-                " &nbsp; &nbsp;급락률: " + data.downCoin[index].value + "  </div>";
+              htmlDown += "<div class='p-3 border bg-dark text-white'>  코인명: " + data.downCoin[index].symbol.substring(4) +
+                " &nbsp; &nbsp;급락률: " + data.downCoin[index].value + "%  </div>";
             }
             $('#down_coin').html(htmlDown);
           })
