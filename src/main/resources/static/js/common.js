@@ -1,26 +1,24 @@
 function setCookie(cname, cvalue, exdays) {
-    var d = new Date();
+    let d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    var expires = "expires=" + d.toUTCString();
+    let expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
 function appendCookie(cname, cvalue, exdays) {
-    var d = new Date();
+    let d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    var expires = "expires=" + d.toUTCString();
-    var exCookie = getCookie(cname);
-    if (exCookie == "") {
-        cvalue = cvalue;
-    } else {
+    let expires = "expires=" + d.toUTCString();
+    let exCookie = getCookie(cname);
+    if (exCookie != "") {
         cvalue = exCookie + "," + cvalue;
     }
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
 function containsCookie(cname, cvalue) {
-    var flag = true;
-    var exCookie = getCookie(cname);
+    let flag = true;
+    let exCookie = getCookie(cname);
     if(exCookie.indexOf(cvalue)==-1){
         flag = false;
     }
@@ -28,11 +26,11 @@ function containsCookie(cname, cvalue) {
 }
 
 function getCookie(cname) {
-    var name = cname + "=";
-    var decodedCookie = unescape(document.cookie);
-    var ca = decodedCookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
+    let name = cname + "=";
+    let decodedCookie = unescape(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
         while (c.charAt(0) == ' ') {
             c = c.substring(1);
         }
@@ -44,10 +42,10 @@ function getCookie(cname) {
 }
 
 function deleteCookie(cname, cvalue) {
-    var exCookie = getCookie(cname);
-    var cvalueLen = cvalue.length;
-    var nvalue = "";
-    var targetIdx = 0;
+    let exCookie = getCookie(cname);
+    let cvalueLen = cvalue.length;
+    let nvalue = "";
+    let targetIdx = 0;
     targetIdx = exCookie.indexOf(cvalue);
     if (targetIdx==0) {
         nvalue = exCookie.slice(cvalueLen+1);

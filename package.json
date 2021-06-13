@@ -18,5 +18,8 @@
   "homepage": "https://github.com/jdj5250/WebTest#readme",
   "devDependencies": {
     "eslint": "^7.25.0"
+  },
+  "dependencies": {
+    "babel-eslint": "^10.1.0"
   }
 }

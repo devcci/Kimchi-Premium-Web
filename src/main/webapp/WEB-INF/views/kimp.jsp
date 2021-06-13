@@ -81,13 +81,13 @@
   <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
   <script type="text/javascript" src="/js/common.js"></script>
   <script type="text/javascript">
-    var arr_krw_markets = []; // 업비트 코인 마켓 배열
-    var arr_korean_name = new Map(); // 업비트 코인 한글명 배열
-    var arr_binance_markets = [];
-    var favorCoinList = getCookie("favorCoin").split(","); // 관심 코인 종목
-    var upbitTkcer = new Map();
-    var binanceTicker = new Map();
-    var binanceFavor = [];
+    let arr_krw_markets = []; // 업비트 코인 마켓 배열
+    let arr_korean_name = new Map(); // 업비트 코인 한글명 배열
+    let arr_binance_markets = [];
+    let favorCoinList = getCookie("favorCoin").split(","); // 관심 코인 종목
+    let upbitTkcer = new Map();
+    let binanceTicker = new Map();
+    let binanceFavor = [];
 
     $(document).ready(function () {
       getUpbitCoinName();
@@ -152,7 +152,7 @@
       fetch('https://api.upbit.com/v1/market/all?isDetails=false', options)
         .then(data => {
           data.json().then(data => {
-            for (var i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
               if (data[i].market.indexOf("KRW") > -1) {
                 arr_krw_markets.push(data[i].market);
                 arr_korean_name.set(data[i].market, data[i].korean_name);
@@ -175,8 +175,8 @@
       fetch('https://api.binance.com/api/v3/exchangeInfo')
         .then(data => {
           data.json().then(data => {
-            for (var i = 0; i < data.symbols.length; i++) {
-              var temp;
+            for (let i = 0; i < data.symbols.length; i++) {
+              let temp;
               if (data.symbols[i].symbol.indexOf("USDT") > -1) {
                 temp = "KRW-" + data.symbols[i].symbol.substring(0, data.symbols[i].symbol.length - 4);
                 if (arr_krw_markets.indexOf(temp) > -1) {
@@ -191,7 +191,7 @@
 
     // 심볼 버튼 출력
     function showSymbol() {
-      var symbolHTML = "";
+      let symbolHTML = "";
       arr_krw_markets.sort();
       for (let i = 0; i < arr_krw_markets.length; i++) {
         symbolHTML +=
@@ -208,7 +208,7 @@
     function showTickerBoard() {
       getUpbitCoinTicker();
       getBinanceTicker();
-      var tickerHTML;
+      let tickerHTML;
 
       for (let i = 0; i < upbitTkcer.size; i++) {
         tickerHTML += '    <tr> ' +
@@ -239,8 +239,8 @@
     }
     // 관심 코인 초기로딩 시 색 표시
     function favorOn(params) {
-      // var smBtns = $("button[name='symbolBtn']"); 제이쿼리 자제
-      var smBtns = document.getElementsByName('symbolBtn');
+      // let smBtns = $("button[name='symbolBtn']"); 제이쿼리 자제
+      let smBtns = document.getElementsByName('symbolBtn');
       for (let i = 0; i < smBtns.length; i++) {
         if (favorCoinList.indexOf(smBtns[i].value) != -1) {
           smBtns[i].className = "btn btn-primary";
@@ -267,13 +267,13 @@
 
     // 업비트 현재가 조회
     function getUpbitCoinTicker() {
-      var favorLen = 0;
+      let favorLen = 0;
       if (favorCoinList[0] == "") {
         return;
       }
       favorLen = favorCoinList.length;
       favorCoinList.sort();
-      var tickerHTML;
+      let tickerHTML;
       const options = {
         method: 'GET',
         dataType: "json"
@@ -316,7 +316,7 @@
 
 
     //비트 도미넌스 차트
-    var btcDomiChart = new TradingView.widget({
+    let btcDomiChart = new TradingView.widget({
       autosize: true,
       symbol: "CRYPTOCAP:BTC.D",
       interval: "D",
@@ -332,7 +332,7 @@
     });
 
     //김프 차트
-    var kimchiChart = new TradingView.widget({
+    let kimchiChart = new TradingView.widget({
       autosize: true,
       symbol: "(BTCKRW/(BTCUSD*USDKRW)*100)-100",
       interval: "D",
